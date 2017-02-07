@@ -23,6 +23,8 @@ app.get("/", function(request, response){
 
 });
 
+
+
 app.post("/", function(request, response){
   	console.log("POST " + request.body.txtName);
 	names.push( " " + request.body.txtName);
@@ -39,3 +41,4 @@ app.get("/api/actionName", function(request, response){
 
 });
 app.listen(port, host);
+// var io = require('socket.io').listen(app);
