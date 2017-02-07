@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+		<title>Real-time test</title>
+
+		<!--<script src="/socket.io/socket.io.js"></script>-->
+
+     <div id="app">
+      <p>{{ message }}</p>
+     </div>
+     
+
+     <div id="app-2">
+      <p>{{ message }}</p>
+       <button v-on:click="submit">submit</button>
+     </div>
+     
+     <div id="app-5">
+       <input v-model="message"><br/><br/>
+        <!--<p>{{ message }}</p>-->
+        
+        <button v-on:click="submit">submit</button>
+    </div>
+    
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+    <script src="MyClient.js"></script>
+    
+</head>
+
+	<body>
+
+		<h1>hello world</h1>
+
+    
+		<ul id="Names">
+	
+		</ul>
+		
+
+		<script type="text/javascript">
+    var hello = "good day!";
+			var ul = document.getElementById("Names");
+				var li = document.createElement("li");
+				li.innerHTML = "<strong> " + hello + " </strong> ";
+				ul.insertBefore(li, ul.getElementsByTagName("li")[0]);
+		</script>
+    
+	<form action="/">
+    <input type="submit" value="click here for change" />
+  </form>
+  <form method = "POST" name="theForm" id="theForm">
+            Name: <input type="text" name="txtName" id="txtName" /><br/>
+            <input type="submit" name="btnSubmit" id="btnSubmit" value="Submit" />
+        </form>
+	</body>
