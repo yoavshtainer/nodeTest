@@ -28,15 +28,17 @@ var app2 = new Vue({
     root: '/root',
     headers: {
       // Authorization: 'Basic YXBpOnBhc3N3b3Jk'
-    }
-    // emulateJSON: true,
-    // emulateHTTP: true
+    },
+    
+    emulateJSON: true,
+    emulateHTTP: true
 },
   methods: {
     submit: function() {
+      var that = this;
         this.$http.get('/api/actionName').then(function (response) {
-                console.log('Success!:', response.message);
-                this.message = response.message;
+            debugger;
+                that.message = response.body.names;
                 // this.loading = false;
             }, function (response) {
                 this.message = 'there is no data';
@@ -89,9 +91,9 @@ var app5 = new Vue({
     root: '/root',
     headers: {
       // Authorization: 'Basic YXBpOnBhc3N3b3Jk'
-    }
-    // emulateJSON: true,
-    // emulateHTTP: true
+    },
+    emulateJSON: true,
+    emulateHTTP: true
 },
   methods: {
     submit: function () {
@@ -99,10 +101,12 @@ var app5 = new Vue({
       console.log("data: " + this.message);
 
       var data = this.message;
-
+        console.log("data: " + data);
             // GET request
-            this.$http.post('/',data).then(function (response) {
-                console.log('Success!:', response.message);
+            var that = this;
+            this.$http.post('/',{message: data}).then(function (response) {
+              debugger;
+                console.log('Success!:', response.body);
                 // this.loading = false;
             }, function (response) {
                 console.log('Error!:', response.data);

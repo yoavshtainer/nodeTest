@@ -25,19 +25,30 @@ app.get("/", function(request, response){
 
 
 
+// app.post("/", function(request, response){
+//   	console.log("POST " + request.body.txtName);
+// 	names.push( " " + request.body.txtName);
+//   response.setHeader("Content-Type", "text/html");
+//   response.send('Succeeded.');
+
+// });
+
 app.post("/", function(request, response){
-  	console.log("POST " + request.body.txtName);
-	names.push( " " + request.body.txtName);
-  response.setHeader("Content-Type", "text/html");
-  response.send('Succeeded.');
+  	console.log("POST " + request.body.message);
+	names.push( " " + request.body.message);
+  // response.setHeader("Content-Type", "text/html");
+  response.send(request.body.message);
 
 });
 
 
 app.get("/api/actionName", function(request, response){
+	// var name = names;
   	console.log("/api/actionName ");
-    response.setHeader("Content-Type", "text/html");
-  response.send('Entered names are: ' +  names + ".");
+    // response.setHeader("Content-Type", "text/html");
+		console.log(names);
+
+  response.send({names:names});
 
 });
 app.listen(port, host);

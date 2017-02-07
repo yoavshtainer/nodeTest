@@ -44,27 +44,27 @@
 		<script type="text/javascript">
 
     var hello = 'bla';
-    var xhr = new XMLHttpRequest();
+    // var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", "/api/actionName", true);
-    xhr.setRequestHeader("Content-Type",
-        "application/x-www-form-urlencoded");
+    // xhr.open("GET", "/api/actionName", true);
+    // xhr.setRequestHeader("Content-Type",
+    //     "application/x-www-form-urlencoded");
     
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            var status = xhr.status;
-            hello = xhr.responseText;
-            console.log( hello);
-            // if ((status >= 200 && status < 300) ||
-            //     status === 304) {
-            //         alert( xhr.responseText);
-            //     } else {
-            //         alert(hello = status);
-            //     }
-        }  
-    };
+    // xhr.onreadystatechange = function() {
+    //     if (xhr.readyState === 4) {
+    //         var status = xhr.status;
+    //         hello = xhr.responseText;
+    //         console.log( hello);
+    //         // if ((status >= 200 && status < 300) ||
+    //         //     status === 304) {
+    //         //         alert( xhr.responseText);
+    //         //     } else {
+    //         //         alert(hello = status);
+    //         //     }
+    //     }  
+    // };
 
-    xhr.send();
+    // xhr.send();
       
       // var socket = io.connect('http://127.0.0.1:1337');	
 			var ul = document.getElementById("Names");
@@ -79,7 +79,7 @@
     <input type="submit" value="click here for change" />
   </form>
   <form method = "POST" name="theForm" id="theForm">
-            Name: <input type="text" name="txtName" id="txtName" /><br/>
+            Name: <input type="text" name="message" id="message" /><br/>
             <input type="submit" name="btnSubmit" id="btnSubmit" value="Submit" />
         </form>
 	</body>
