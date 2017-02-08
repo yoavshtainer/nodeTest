@@ -36,6 +36,7 @@ var app2 = new Vue({
   methods: {
     submit: function() {
       var that = this;
+      
         this.$http.get('/api/actionName').then(function (response) {
             debugger;
                 that.message = response.body.message;
