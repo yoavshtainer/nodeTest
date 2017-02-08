@@ -42,19 +42,20 @@ var dBase = {
 }
 
 app.post("/", function(request, response){
-  	console.log("POST " + request.body.message);
+  	console.log("POST " + request.body.message.id + " " + request.body.message.name);
 	// names.push( " " + request.body.message);
 	db.collection("user", function(error, collection){
 		console.log("We have the collection");
 	collection.findOne({id:request.body.message.id}, function(error, user){
+										if(!error){
 											console.log("user is: ", user);
 											dBase.status = !user.status;
-
-											if(error){
-												console.log("there is no user with this id:" );
+										}	else{
+												console.log("there is no user with this id." );
 												dBase.status = true;
 											}
 						});
+
 	console.log("status " + dBase.status);
 	collection.insert({
 			id: request.body.message.id,
@@ -71,12 +72,26 @@ app.post("/", function(request, response){
 
 
 app.get("/api/actionName", function(request, response){
-	// var name = names;
-  	console.log("/api/actionName ");
-    // response.setHeader("Content-Type", "text/html");
-		console.log(names);
 
-  response.send({names:names});
+  	console.log("/api/actionName ");
+
+		var message = dBase;
+		db.collection("user", function(error, collection){
+			// collection.findOne({id:"1"}, function(error, user){
+			// 								console.log("user is: ", user);
+
+			// 			});
+		collection.find({}).toArray().then( function(users){
+					if(users.length == 0){
+							console.log("no user");
+					}else{
+							console.log("found user", message = user[0]);
+					}
+			})
+
+	});
+
+  response.send({message:message});
 
 });
 app.listen(port, host);

@@ -38,7 +38,7 @@ var app2 = new Vue({
       var that = this;
         this.$http.get('/api/actionName').then(function (response) {
             debugger;
-                that.message = response.body.names;
+                that.message = response.body.message;
                 // this.loading = false;
             }, function (response) {
                 this.message = 'there is no data';
