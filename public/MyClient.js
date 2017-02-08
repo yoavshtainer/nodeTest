@@ -85,7 +85,10 @@ var app2 = new Vue({
 var app5 = new Vue({
   el: '#app-5',
   data: {
-    message: ''
+    message: 'plaese enter id and name:',
+    id: '',
+    name: ''
+        
   },
   http: {
     root: '/root',
@@ -97,14 +100,15 @@ var app5 = new Vue({
 },
   methods: {
     submit: function () {
-      var myMessage = this.message;
-      console.log("data: " + this.message);
+      var myMessage = {
+        id: this.id,
+        name : this.name
+      }
+      console.log("data: " + myMessage);
 
-      var data = this.message;
-        console.log("data: " + data);
             // GET request
             var that = this;
-            this.$http.post('/',{message: data}).then(function (response) {
+            this.$http.post('/',{message: myMessage}).then(function (response) {
               debugger;
                 console.log('Success!:', response.body);
                 // this.loading = false;
@@ -113,7 +117,7 @@ var app5 = new Vue({
                 // this.loading = false;
             });
 
-      this.message = this.message.split('').reverse().join('');
+      // this.message = this.message.split('').reverse().join('');
     }
   }
 })
