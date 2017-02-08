@@ -15,7 +15,7 @@ console.log('hello world!');
 new Vue({
   el: '#app',
   data: {
-    message: 'app app Vue.js!'
+    message: 'welcome to my website!'
   }
 })
 

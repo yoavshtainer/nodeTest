@@ -18,14 +18,39 @@ console.log("start");
 
 var db = new mongo.Db("nodejs-introduction", new mongo.Server(host, port, {}));
 
+var dBase = {
+	id : 0,
+	name: '',
+	status: false
+}
+
 db.open(function(error){
 	console.log("We are connected! " + host + ":" + port);
 	
-	// db.collection("tweet", function(error, collection){
-	// 	tweetCollection = collection;
-	// });
+	// db.collection("user", function(error, collection){
+	// 	console.log("We have the collection");
 
-})
+	// collection.insert({
+	// 		id: dBase.id,
+	// 		name: dBase.name,
+	// 		status: dBase.status
+	// 	}, function(){
+	// 		console.log("Successfully inserted " + dBase);
+	// 	});
+
+	// 		collection.findOne({id:dBase.id}, function(error, user){
+	// 									console.log("error is: ", error);
+	// 									console.log("user is: ", user);
+
+	// 					});
+
+	// console.log("status " + dBase.status);
+	// });
+	// // db.collection("tweet", function(error, collection){
+	// // 	tweetCollection = collection;
+	// // });
+
+});
 
 app.get("/", function(request, response){
 	var content = fs.readFileSync("index.html");
@@ -35,11 +60,7 @@ app.get("/", function(request, response){
 
 });
 
-var dBase = {
-	id : 0,
-	name: '',
-	status: false
-}
+
 
 app.post("/", function(request, response){
   	console.log("POST " + request.body.message.id + " " + request.body.message.name);
@@ -47,13 +68,15 @@ app.post("/", function(request, response){
 	db.collection("user", function(error, collection){
 		console.log("We have the collection");
 	collection.findOne({id:request.body.message.id}, function(error, user){
-										if(!error){
-											console.log("user is: ", user);
-											dBase.status = !user.status;
-										}	else{
-												console.log("there is no user with this id." );
-												dBase.status = true;
-											}
+										console.log("error is: ", error);
+										console.log("user is: ", user);
+										// if(!error){
+										// 	console.log("user is: ", user);
+										// 	dBase.status = !user.status;
+										// }	else{
+										// 		console.log("there is no user with this id." );
+										// 		dBase.status = true;
+										// 	}
 						});
 
 	console.log("status " + dBase.status);
