@@ -9,9 +9,6 @@ var config = JSON.parse(fs.readFileSync("config.json"));
 var host = config.host;
 var port = config.port;
 
-process.env.MONGO_URL = "mongodb://127.0.0.1:27017/integration_tests";
-
- log.info('connecting to dburl : ', process.env.MONGO_URL);
 var app = express();
 
 app.use(express.static('public'));
@@ -23,16 +20,12 @@ var dBase = {
 	id : 0,
 	name: '',
 	status: false
-}
+};
+ var count;
 var db = require("./Sensor.dal");
-// db.open(function(error){
-// 	console.log("We are connected! " + host + ":" + port);
-
-// });
-// db.sensor.connect();
-// console.log(db.sensor.isConnected());
 console.log(db.sensor.colName);
 // db.sensor.add(dBase,"sensors");
+
 
 app.get("/", function(request, response){
 	var content = fs.readFileSync("index.html");
@@ -41,35 +34,23 @@ app.get("/", function(request, response){
 		response.send(content);
 
 });
-
-
+// setTimeout(doSomething, 10);
+  count = db.sensor.getLength(dBase,"sensors");
 
 app.post("/", function(request, response){
   	console.log("POST " + request.body.message.id + " " + request.body.message.name);
-	// names.push( " " + request.body.message);
-	// db.collection("user", function(error, collection){
-	// 	console.log("We have the collection");
-	// collection.findOne({id:request.body.message.id}, function(error, user){
-	// 									console.log("error is: ", error);
-	// 									console.log("user is: ", user);
-	// 									// if(!error){
-	// 									// 	console.log("user is: ", user);
-	// 									// 	dBase.status = !user.status;
-	// 									// }	else{
-	// 									// 		console.log("there is no user with this id." );
-	// 									// 		dBase.status = true;
-	// 									// 	}
-	// 					});
+		dBase.id = request.body.message.id;
+		db.sensor.getsensorByName(request.body.message.id,"sensors");
+		if(dBase.id === request.body.message.id){
+			console.log("exist");
+			dBase.status != dBase.status;
+		} else{
+			console.log("not exist");
+			dBase.status = false;
+		}
 
-	// console.log("status " + dBase.status);
-	// collection.insert({
-	// 		id: request.body.message.id,
-	// 		name: request.body.message.name,
-	// 		status: dBase.status
-	// 	}, function(){
-	// 		console.log("Successfully inserted " + request.body.message.name);
-	// 	});
-	// });
+		db.sensor.add(dBase,"sensors");
+
   // response.setHeader("Content-Type", "text/html");
   response.send(request.body.message);
 
@@ -80,7 +61,7 @@ app.get("/api/actionName", function(request, response){
 
   	console.log("/api/actionName ");
 
-		var message = dBase;
+	var message =	db.sensor.getsensorByName(count,"sensors");
 	// 	db.collection("user", function(error, collection){
 	// 		// collection.findOne({id:"1"}, function(error, user){
 	// 		// 								console.log("user is: ", user);
