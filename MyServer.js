@@ -2,13 +2,16 @@
 var fs = require("fs");
 var express = require("express");
 var bodyParser = require("body-parser");
-var mongo = require("mongodb");
+var log = require('minilog')('MyServer');
+// var mongo = require("mongodb");
 
 var config = JSON.parse(fs.readFileSync("config.json"));
 var host = config.host;
 var port = config.port;
 
-var names = [];
+process.env.MONGO_URL = "mongodb://127.0.0.1:27017/integration_tests";
+
+ log.info('connecting to dburl : ', process.env.MONGO_URL);
 var app = express();
 
 app.use(express.static('public'));
@@ -16,41 +19,20 @@ app.use(bodyParser.urlencoded());
 
 console.log("start");
 
-var db = new mongo.Db("nodejs-introduction", new mongo.Server(host, port, {}));
-
 var dBase = {
 	id : 0,
 	name: '',
 	status: false
 }
+var db = require("./Sensor.dal");
+// db.open(function(error){
+// 	console.log("We are connected! " + host + ":" + port);
 
-db.open(function(error){
-	console.log("We are connected! " + host + ":" + port);
-	
-	// db.collection("user", function(error, collection){
-	// 	console.log("We have the collection");
-
-	// collection.insert({
-	// 		id: dBase.id,
-	// 		name: dBase.name,
-	// 		status: dBase.status
-	// 	}, function(){
-	// 		console.log("Successfully inserted " + dBase);
-	// 	});
-
-	// 		collection.findOne({id:dBase.id}, function(error, user){
-	// 									console.log("error is: ", error);
-	// 									console.log("user is: ", user);
-
-	// 					});
-
-	// console.log("status " + dBase.status);
-	// });
-	// // db.collection("tweet", function(error, collection){
-	// // 	tweetCollection = collection;
-	// // });
-
-});
+// });
+// db.sensor.connect();
+// console.log(db.sensor.isConnected());
+console.log(db.sensor.colName);
+// db.sensor.add(dBase,"sensors");
 
 app.get("/", function(request, response){
 	var content = fs.readFileSync("index.html");
@@ -65,29 +47,29 @@ app.get("/", function(request, response){
 app.post("/", function(request, response){
   	console.log("POST " + request.body.message.id + " " + request.body.message.name);
 	// names.push( " " + request.body.message);
-	db.collection("user", function(error, collection){
-		console.log("We have the collection");
-	collection.findOne({id:request.body.message.id}, function(error, user){
-										console.log("error is: ", error);
-										console.log("user is: ", user);
-										// if(!error){
-										// 	console.log("user is: ", user);
-										// 	dBase.status = !user.status;
-										// }	else{
-										// 		console.log("there is no user with this id." );
-										// 		dBase.status = true;
-										// 	}
-						});
+	// db.collection("user", function(error, collection){
+	// 	console.log("We have the collection");
+	// collection.findOne({id:request.body.message.id}, function(error, user){
+	// 									console.log("error is: ", error);
+	// 									console.log("user is: ", user);
+	// 									// if(!error){
+	// 									// 	console.log("user is: ", user);
+	// 									// 	dBase.status = !user.status;
+	// 									// }	else{
+	// 									// 		console.log("there is no user with this id." );
+	// 									// 		dBase.status = true;
+	// 									// 	}
+	// 					});
 
-	console.log("status " + dBase.status);
-	collection.insert({
-			id: request.body.message.id,
-			name: request.body.message.name,
-			status: dBase.status
-		}, function(){
-			console.log("Successfully inserted " + request.body.message.name);
-		});
-	});
+	// console.log("status " + dBase.status);
+	// collection.insert({
+	// 		id: request.body.message.id,
+	// 		name: request.body.message.name,
+	// 		status: dBase.status
+	// 	}, function(){
+	// 		console.log("Successfully inserted " + request.body.message.name);
+	// 	});
+	// });
   // response.setHeader("Content-Type", "text/html");
   response.send(request.body.message);
 
@@ -99,20 +81,20 @@ app.get("/api/actionName", function(request, response){
   	console.log("/api/actionName ");
 
 		var message = dBase;
-		db.collection("user", function(error, collection){
-			// collection.findOne({id:"1"}, function(error, user){
-			// 								console.log("user is: ", user);
+	// 	db.collection("user", function(error, collection){
+	// 		// collection.findOne({id:"1"}, function(error, user){
+	// 		// 								console.log("user is: ", user);
 
-			// 			});
-		collection.find({}).toArray().then( function(users){
-					if(users.length == 0){
-							console.log("no user");
-					}else{
-							console.log("found user", message = user[0]);
-					}
-			})
+	// 		// 			});
+	// 	collection.find({}).toArray().then( function(users){
+	// 				if(users.length == 0){
+	// 						console.log("no user");
+	// 				}else{
+	// 						console.log("found user", message = user[0]);
+	// 				}
+	// 		})
 
-	});
+	// });
 
   response.send({message:message});
 
