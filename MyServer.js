@@ -21,10 +21,11 @@ var dBase = {
 	name: '',
 	status: false
 };
- var count;
+
 var db = require("./Sensor.dal");
+// Mongo.connect();
 console.log(db.sensor.colName);
-// db.sensor.add(dBase,"sensors");
+
 
 
 app.get("/", function(request, response){
@@ -35,21 +36,23 @@ app.get("/", function(request, response){
 
 });
 // setTimeout(doSomething, 10);
-  count = db.sensor.getLength(dBase,"sensors");
-
+ var count = db.sensor.connect(dBase,"sensors");
 app.post("/", function(request, response){
   	console.log("POST " + request.body.message.id + " " + request.body.message.name);
-		dBase.id = request.body.message.id;
-		db.sensor.getsensorByName(request.body.message.id,"sensors");
-		if(dBase.id === request.body.message.id){
+// var DBase = dBase;
+		var DBase = db.sensor.getsensorByid(request.body.message.id,"sensors");
+		if(DBase.id === request.body.message.id){
 			console.log("exist");
-			dBase.status != dBase.status;
+			DBase.status != dBase.status;
+				db.sensor.update(DBase,"sensors");
 		} else{
 			console.log("not exist");
-			dBase.status = false;
+			DBase.name = request.body.message.name;
+			DBase.status = false;
+			db.sensor.add(DBase,"sensors");
 		}
 
-		db.sensor.add(dBase,"sensors");
+		
 
   // response.setHeader("Content-Type", "text/html");
   response.send(request.body.message);
@@ -59,9 +62,10 @@ app.post("/", function(request, response){
 
 app.get("/api/actionName", function(request, response){
 
-  	console.log("/api/actionName ");
+  	console.log("/api/actionName " + count);
 
-	var message =	db.sensor.getsensorByName(count,"sensors");
+	var message =	db.sensor.getsensorByid(count,"sensors");
+	console.log("message: " + message);
 	// 	db.collection("user", function(error, collection){
 	// 		// collection.findOne({id:"1"}, function(error, user){
 	// 		// 								console.log("user is: ", user);
