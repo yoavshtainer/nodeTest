@@ -22,7 +22,8 @@ new Vue({
 var app2 = new Vue({
   el: '#app-2',
   data: {
-    message: ''
+    message: '',
+    id:''
   },
   http: {
     root: '/root',
@@ -35,11 +36,14 @@ var app2 = new Vue({
 },
   methods: {
     submit: function() {
+      var myId = this.id;
+      var myMessage = `/api/actionName/${myId}`;
       var that = this;
-      
-        this.$http.get('/api/actionName').then(function (response) {
-            debugger;
-                that.message = response.body.message;
+        // this.$http.get('/api/actionName',{id: myMessage.id}).then(function (request,response) {
+         this.$http.get(myMessage).then(function (response) {  
+             console.log(response.body);
+             debugger;
+                that.message = response.body;
                 // this.loading = false;
             }, function (response) {
                 this.message = 'there is no data';
@@ -110,7 +114,7 @@ var app5 = new Vue({
             // GET request
             var that = this;
             this.$http.post('/',{message: myMessage}).then(function (response) {
-              debugger;
+              // debugger;
                 console.log('Success!:', response.body);
                 // this.loading = false;
             }, function (response) {

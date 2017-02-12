@@ -60,29 +60,18 @@ app.post("/", function(request, response){
 });
 
 
-app.get("/api/actionName", function(request, response){
+app.get("/api/actionName/:id", function(request, response){
 
-  	console.log("/api/actionName " + count);
+  	console.log("/api/actionName " + request.params.id);
 
-	var message =	db.sensor.getsensorByid(count,"sensors");
+	db.sensor.getsensorByid(request.params.id,"sensors").then(function(message){
+		
 	console.log("message: " + message);
-	// 	db.collection("user", function(error, collection){
-	// 		// collection.findOne({id:"1"}, function(error, user){
-	// 		// 								console.log("user is: ", user);
-
-	// 		// 			});
-	// 	collection.find({}).toArray().then( function(users){
-	// 				if(users.length == 0){
-	// 						console.log("no user");
-	// 				}else{
-	// 						console.log("found user", message = user[0]);
-	// 				}
-	// 		})
-
-	// });
-
-  response.send({message:message});
-
+  console.log("message: " + message.id);
+  response.send(request.params.id);
+	}, function(err){
+		console.log("get err message: " + err);
+	});	
 });
 app.listen(port, host);
 // var io = require('socket.io').listen(app);
