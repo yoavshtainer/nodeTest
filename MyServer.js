@@ -40,8 +40,7 @@ app.get("/", function(request, response){
 app.post("/", function(request, response){
   	console.log("POST id: " + request.body.message.id + " name: " + request.body.message.name + " area: " + request.body.message.area);
 
-var data = db.getsensorByid(request.body.message.id,"sensors");
-		data.then(function(sensor){
+db.getsensorByid(request.body.message.id,"sensors").then(function(sensor){
 			console.log("sensor is: ", sensor);
 			if(sensor === null) {
 						console.log("not exist");
@@ -67,8 +66,7 @@ app.get("/api/actionName/:id", function(request, response){
 
   	console.log("/api/actionName " + request.params.id);
 	
-		var data = db.getsensorByid(request.params.id,"sensors");
-		data.then(function(sensor){
+		db.getsensorByid(request.params.id,"sensors").then(function(sensor){
               console.log("sensor is: ", sensor);
 							response.send(sensor);
               // return sensor;
