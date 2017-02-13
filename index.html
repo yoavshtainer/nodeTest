@@ -19,8 +19,9 @@
      
 
      <div id="app-2">
-      <p><h2>{{ message }}</h2></p>
-      <p><h3>{{ status }}</h3></p>
+      <p><h2>sensor name: {{ sensor }}</h2></p>
+      <p><h2>area: {{ area }}</h2></p>
+      <p><h3>status: {{ status }}</h3></p>
       <p><strong>id:</strong></p><input v-model="id"><br/><br/>
        <button v-on:click="submit">get data</button>
      </div>
@@ -28,7 +29,8 @@
      <div id="app-5">
        <p><h2>{{ message }}</h2></p>
        <p><strong>id:</strong></p><input v-model="id"><br/>
-       <p><strong>name:</strong></p><input v-model="name"><br/><br/>
+       <p><strong>name:</strong></p><input v-model="name"><br/>
+       <p><strong>area:</strong></p><input v-model="area"><br/><br/>
         <!--<p>{{ message }}</p>-->
         
         <button v-on:click="submit">submit</button>

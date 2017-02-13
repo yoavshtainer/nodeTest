@@ -38,23 +38,19 @@ app.get("/", function(request, response){
 // setTimeout(doSomething, 10);
  var count = db.connect(dBase,"sensors");
 app.post("/", function(request, response){
-  	console.log("POST id: " + request.body.message.id + " name: " + request.body.message.name);
+  	console.log("POST id: " + request.body.message.id + " name: " + request.body.message.name + " area: " + request.body.message.area);
 
 var data = db.getsensorByid(request.body.message.id,"sensors");
-		data.then(function(user){
-			console.log("user is: ", user);
-			if(user === null) {
+		data.then(function(sensor){
+			console.log("sensor is: ", sensor);
+			if(sensor === null) {
 						console.log("not exist");
-						var Data = {
-							id : request.body.message.id,
-							name: request.body.message.name,
-							status: false
-						};
+						var Data = request.body.message;
 						db.add(Data,"sensors");
 			} else {
 						console.log("exist");
-						user.status != user.status;
-						db.updatesensor(user,"sensors");
+						sensor.status != sensor.status;
+						db.updatesensor(sensor,"sensors");
       }
 							
 			response.send(request.body.message);
@@ -72,10 +68,10 @@ app.get("/api/actionName/:id", function(request, response){
   	console.log("/api/actionName " + request.params.id);
 	
 		var data = db.getsensorByid(request.params.id,"sensors");
-		data.then(function(user){
-              console.log("user is: ", user);
-							response.send(user);
-              // return user;
+		data.then(function(sensor){
+              console.log("sensor is: ", sensor);
+							response.send(sensor);
+              // return sensor;
             },function(error){
               console.log("error is: ", error);
 							response.send(error);

@@ -22,8 +22,9 @@ new Vue({
 var app2 = new Vue({
   el: '#app-2',
   data: {
-    message: '',
-    status: 'off',
+    sensor: '',
+    area: '',
+    status: '',
     id:''
   },
   http: {
@@ -44,7 +45,8 @@ var app2 = new Vue({
          this.$http.get(myMessage).then(function (response) {  
              console.log(response.body);
             //  debugger;
-                that.message = response.body;
+                that.sensor = response.body.name;
+                that.area = response.body.area;
                 if(response.body.status == true){
                     that.status = 'on';
                 } else {
@@ -99,7 +101,8 @@ var app5 = new Vue({
   data: {
     message: 'plaese enter id and name:',
     id: '',
-    name: ''
+    name: '',
+    area: ''
         
   },
   http: {
@@ -114,12 +117,13 @@ var app5 = new Vue({
     submit: function () {
       var myMessage = {
         id: this.id,
-        name : this.name
+        name: this.name,
+        area: this.area
       }
       console.log("data: " + myMessage);
 
             // GET request
-            var that = this;
+            // var that = this;
             this.$http.post('/',{message: myMessage}).then(function (response) {
               // debugger;
                 console.log('Success!: ', response.body);
