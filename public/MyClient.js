@@ -23,6 +23,7 @@ var app2 = new Vue({
   el: '#app-2',
   data: {
     message: '',
+    status: 'off',
     id:''
   },
   http: {
@@ -42,8 +43,14 @@ var app2 = new Vue({
         // this.$http.get('/api/actionName',{id: myMessage.id}).then(function (request,response) {
          this.$http.get(myMessage).then(function (response) {  
              console.log(response.body);
-             debugger;
+            //  debugger;
                 that.message = response.body;
+                if(response.body.status == true){
+                    that.status = 'on';
+                } else {
+                  that.status = 'off';
+                }
+                  
                 // this.loading = false;
             }, function (response) {
                 this.message = 'there is no data';

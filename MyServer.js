@@ -54,7 +54,7 @@ var data = db.getsensorByid(request.body.message.id,"sensors");
 			} else {
 						console.log("exist");
 						user.status != user.status;
-						db.update(user,"sensors");
+						db.updatesensor(user,"sensors");
       }
 							
 			response.send(request.body.message);
