@@ -32,11 +32,11 @@ class sensor {
     var col = Mongo.collection(collectionName);
     
   return  col.findOne({id : sensorid.toString()});
-  // .then(function(user){
-  //             console.log("user is: ", user);
-  //             console.log("user is: ", user.id);
-  //             console.log("user is: ", user.name);
-  //             // return user;
+  // .then(function(sensor){
+  //             console.log("sensor is: ", sensor);
+  //             console.log("sensor is: ", sensor.id);
+  //             console.log("sensor is: ", sensor.name);
+  //             // return sensor;
   //           },function(error){
   //             console.log("error is: ", error);
   //             // return 0;
@@ -73,15 +73,15 @@ class sensor {
  static getLength(sensor, collectionName = 'sensors') {
   var col = Mongo.collection(collectionName);
   var count;
-  col.find({}).toArray().then( function(users){
-    count = users.length;
-					if(users.length == 0){         
-							console.log("no user");
+  col.find({}).toArray().then( function(sensors){
+    count = sensors.length;
+					if(sensors.length == 0){         
+							console.log("no sensor");
               sensor.add(sensor,"sensors");
 					}else{
-							console.log("found "+ (users.length) +" users" );  
+							console.log("found "+ (sensors.length) +" sensors" );  
               var count = 0;
-              users.forEach(function(element) {
+              sensors.forEach(function(element) {
                   console.log("element number: " + count + " id: " + element.id);
                   console.log("name: "+ element.name);
                   console.log("status: "+ element.status);
