@@ -22,10 +22,12 @@ new Vue({
 var app2 = new Vue({
   el: '#app-2',
   data: {
+    seen: false,
+    seenN: true,
     sensor: '',
     area: '',
     status: '',
-    id:''
+    id:'',   
   },
   http: {
     root: '/root',
@@ -45,13 +47,21 @@ var app2 = new Vue({
          this.$http.get(myMessage).then(function (response) {  
              console.log(response.body);
             //  debugger;
-                that.sensor = response.body.name;
+            if(response.body == "there is no data") {
+						  that.seen = false;
+              that.seenN = true;
+		      	} else {
+                that.seen = true;
+                that.seenN = false;
+						    that.sensor = response.body.name;
                 that.area = response.body.area;
                 if(response.body.status == true){
                     that.status = 'on';
                 } else {
                   that.status = 'off';
                 }
+          }
+               
                   
                 // this.loading = false;
             }, function (response) {

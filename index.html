@@ -19,12 +19,14 @@
      
 
      <div id="app-2">
-      <p><h2>sensor name: {{ sensor }}</h2></p>
-      <p><h2>area: {{ area }}</h2></p>
-      <p><h3>status: {{ status }}</h3></p>
-      <p><strong>id:</strong></p><input v-model="id"><br/><br/>
+      <p><h2 v-if="seen">sensor name: {{ sensor }} <br/><br/>
+                        area: {{ area }}</h2>
+      <h3 v-if="seen">status: {{ status }}</h3>
+      <h2 v-if="seenN">there is no data </h2>
+      <strong>id:</strong></p><input v-model="id"><br/><br/>
        <button v-on:click="submit">get data</button>
      </div>
+     
      
      <div id="app-5">
        <p><h2>{{ message }}</h2></p>

@@ -68,7 +68,11 @@ app.get("/api/actionName/:id", function(request, response){
 	
 		db.getsensorByid(request.params.id,"sensors").then(function(sensor){
               console.log("sensor is: ", sensor);
-							response.send(sensor);
+							if(sensor === null) {
+								response.send('there is no data');								
+							} else {
+								response.send(sensor);
+							}
               // return sensor;
             },function(error){
               console.log("error is: ", error);
