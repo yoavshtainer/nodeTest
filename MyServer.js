@@ -3,7 +3,7 @@ var fs = require("fs");
 var express = require("express");
 var bodyParser = require("body-parser");
 var log = require('minilog')('MyServer');
-// var mongo = require("mongodb");
+
 
 var config = JSON.parse(fs.readFileSync("config.json"));
 var host = config.host;
@@ -23,9 +23,6 @@ var dBase = {
 };
 
 var db = require("./Sensor.dal").sensor;
-// Mongo.connect();
-console.log(db.colName);
-
 
 
 app.get("/", function(request, response){
@@ -35,8 +32,7 @@ app.get("/", function(request, response){
 		response.send(content);
 
 });
-// setTimeout(doSomething, 10);
-//  var count = db.connect(dBase,"sensors");
+
 app.post("/", function(request, response){
   	console.log("POST id: " + request.body.message.id + " name: " + request.body.message.name + " area: " + request.body.message.area);
 
@@ -57,8 +53,6 @@ db.getsensorByid(request.body.message.id,"sensors").then(function(sensor){
 			console.log("error is: ", error);
 			response.send(error);
 		});
-
-						// response.send(request.body.message);
 });
 
 

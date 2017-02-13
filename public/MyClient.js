@@ -1,16 +1,13 @@
 
-// alert("Hello world!");
 // var Vue = require('vue');
 // var VueResource = require('vue-resource');
+// var VueMaterial = require('vue-material');
+// require('vue-material/dist/vue-material.css');
 
 Vue.use(VueResource);
+// Vue.use(VueMaterial);
 
 console.log('hello world!');
-
-// Vue.http.options.root = '/root';
-// Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
-// Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content');
-// Vue.http.headers.common['Content-Type'] = "text/html";
 
 new Vue({
   el: '#app',
@@ -32,7 +29,7 @@ var app2 = new Vue({
   http: {
     root: '/root',
     headers: {
-      // Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+
     },
     
     emulateJSON: true,
@@ -43,27 +40,24 @@ var app2 = new Vue({
       var myId = this.id;
       var myMessage = `/api/actionName/${myId}`;
       var that = this;
-        // this.$http.get('/api/actionName',{id: myMessage.id}).then(function (request,response) {
+
          this.$http.get(myMessage).then(function (response) {  
-             console.log(response.body);
-            //  debugger;
-            if(response.body == "there is no data") {
-						  that.seen = false;
-              that.seenN = true;
-		      	} else {
-                that.seen = true;
-                that.seenN = false;
-						    that.sensor = response.body.name;
-                that.area = response.body.area;
-                if(response.body.status == true){
-                    that.status = 'on';
+                console.log(response.body);
+                //  debugger;
+                if(response.body == "there is no data") {
+                  that.seen = false;
+                  that.seenN = true;
                 } else {
-                  that.status = 'off';
-                }
-          }
-               
-                  
-                // this.loading = false;
+                    that.seen = true;
+                    that.seenN = false;
+                    that.sensor = response.body.name;
+                    that.area = response.body.area;
+                    if(response.body.status == true){
+                        that.status = 'on';
+                    } else {
+                      that.status = 'off';
+                    }
+              }               
             }, function (response) {
                 this.message = 'there is no data';
                 console.log('Error!:', response.data);
@@ -133,14 +127,11 @@ var app5 = new Vue({
       console.log("data: " + myMessage);
 
             // GET request
-            // var that = this;
             this.$http.post('/',{message: myMessage}).then(function (response) {
               // debugger;
                 console.log('Success!: ', response.body);
-                // this.loading = false;
             }, function (response) {
                 console.log('Error!: ', response.data);
-                // this.loading = false;
             });
 
       // this.message = this.message.split('').reverse().join('');

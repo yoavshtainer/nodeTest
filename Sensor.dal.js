@@ -32,15 +32,6 @@ class sensor {
     var col = Mongo.collection(collectionName);
     
   return  col.findOne({id : sensorid.toString()});
-  // .then(function(sensor){
-  //             console.log("sensor is: ", sensor);
-  //             console.log("sensor is: ", sensor.id);
-  //             console.log("sensor is: ", sensor.name);
-  //             // return sensor;
-  //           },function(error){
-  //             console.log("error is: ", error);
-  //             // return 0;
-  //           });  
   }
 
   static updatesensor(sensor, collectionName = 'sensors') {

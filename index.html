@@ -6,15 +6,8 @@
   <meta charset="utf-8" />
 		<title>Real-time test</title>
     <link href="style.css" rel="stylesheet" >
-		<!--<script src="/socket.io/socket.io.js"></script>-->
-
      <div id="app">
       <p><h1>{{ message }}</h1></p>
-      <!--<p><h2>{{ message }}</h2></p>
-      <p><h3>{{ message }}</h3></p>
-      <p><h4>{{ message }}</h4></p>
-      <p><h5>{{ message }}</h5></p>
-      <p><h6>{{ message }}</h6></p>-->
      </div>
      
 
@@ -33,13 +26,14 @@
        <p><strong>id:</strong></p><input v-model="id"><br/>
        <p><strong>name:</strong></p><input v-model="name"><br/>
        <p><strong>area:</strong></p><input v-model="area"><br/><br/>
-        <!--<p>{{ message }}</p>-->
         
         <button v-on:click="submit">submit</button>
     </div>
     
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+    <!--<link rel="stylesheet" href="\vue-material.css">
+    <script src="\node_modules\vue-material.js"></script>-->
     <script src="MyClient.js"></script>
     
 </head>
@@ -48,16 +42,4 @@
 
 
     <img src="smartHome.jpg" alt="smartHome">
-		<!--<h1>hello world</h1>-->
-
-    
-	
-    
-	<!--<form method = "GET" name="theForm" id="theForm">
-    <input type="submit" value="click here for change" />
-  </form>
-  <form method = "POST" name="theForm" id="theForm">
-            Name: <input type="text" name="message" id="message" /><br/>
-            <input type="submit" name="btnSubmit" id="btnSubmit" value="Submit" />
-        </form>-->
 	</body>
