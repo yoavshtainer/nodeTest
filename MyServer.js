@@ -22,9 +22,9 @@ var dBase = {
 	status: false
 };
 
-var db = require("./Sensor.dal");
+var db = require("./Sensor.dal").sensor;
 // Mongo.connect();
-console.log(db.sensor.colName);
+console.log(db.colName);
 
 
 
@@ -36,42 +36,54 @@ app.get("/", function(request, response){
 
 });
 // setTimeout(doSomething, 10);
- var count = db.sensor.connect(dBase,"sensors");
+ var count = db.connect(dBase,"sensors");
 app.post("/", function(request, response){
-  	console.log("POST " + request.body.message.id + " " + request.body.message.name);
-// var DBase = dBase;
-		var DBase = db.sensor.getsensorByid(request.body.message.id,"sensors");
-		if(DBase.id === request.body.message.id){
-			console.log("exist");
-			DBase.status != dBase.status;
-				db.sensor.update(DBase,"sensors");
-		} else{
-			console.log("not exist");
-			DBase.name = request.body.message.name;
-			DBase.status = false;
-			db.sensor.add(DBase,"sensors");
-		}
+  	console.log("POST id: " + request.body.message.id + " name: " + request.body.message.name);
 
-		
+var data = db.getsensorByid(request.body.message.id,"sensors");
+		data.then(function(user){
+			console.log("user is: ", user);
+			if(user === null) {
+						console.log("not exist");
+						var Data = {
+							id : request.body.message.id,
+							name: request.body.message.name,
+							status: false
+						};
+						db.add(Data,"sensors");
+			} else {
+						console.log("exist");
+						user.status != user.status;
+						db.update(user,"sensors");
+      }
+							
+			response.send(request.body.message);
+		},function(error){
+			console.log("error is: ", error);
+			response.send(error);
+		});
 
-  // response.setHeader("Content-Type", "text/html");
-  response.send(request.body.message);
-
+						// response.send(request.body.message);
 });
 
 
 app.get("/api/actionName/:id", function(request, response){
 
   	console.log("/api/actionName " + request.params.id);
-
-	db.sensor.getsensorByid(request.params.id,"sensors").then(function(message){
+	
+		var data = db.getsensorByid(request.params.id,"sensors");
+		data.then(function(user){
+              console.log("user is: ", user);
+							response.send(user);
+              // return user;
+            },function(error){
+              console.log("error is: ", error);
+							response.send(error);
+              // return 0;
+            });
 		
-	console.log("message: " + message);
-  console.log("message: " + message.id);
-  response.send(request.params.id);
-	}, function(err){
-		console.log("get err message: " + err);
-	});	
+ 
+  
 });
 app.listen(port, host);
 // var io = require('socket.io').listen(app);

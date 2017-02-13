@@ -115,10 +115,10 @@ var app5 = new Vue({
             var that = this;
             this.$http.post('/',{message: myMessage}).then(function (response) {
               // debugger;
-                console.log('Success!:', response.body);
+                console.log('Success!: ', response.body);
                 // this.loading = false;
             }, function (response) {
-                console.log('Error!:', response.data);
+                console.log('Error!: ', response.data);
                 // this.loading = false;
             });
 
