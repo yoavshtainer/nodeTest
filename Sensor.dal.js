@@ -1,7 +1,7 @@
 var connectors = require('./connectIndex');
 var Mongo = connectors.Mongo;
 var log = require('minilog')('sensor.dal');
-
+Mongo.connect();
 log.info('is connected', Mongo.isConnected);
 
 class sensor {
@@ -9,13 +9,13 @@ class sensor {
     return 'sensors';
   }
 
-  static connect(sensors, collectionName = 'sensors'){
-    Mongo.connect().then(function() {
-    var col = Mongo.collection(collectionName);
-    return sensor.getLength(sensor, collectionName = 'sensors');
-    });
+  // static connect(sensors, collectionName = 'sensors'){
+  //   Mongo.connect().then(function() {
+  //   var col = Mongo.collection(collectionName);
+  //   return sensor.getLength(sensor, collectionName = 'sensors');
+  //   });
     
-  }
+  // }
   static add(sensors, collectionName = 'sensors') {
     var col = Mongo.collection(collectionName);
     col.insert(sensors, function(){

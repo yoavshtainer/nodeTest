@@ -36,7 +36,7 @@ app.get("/", function(request, response){
 
 });
 // setTimeout(doSomething, 10);
- var count = db.connect(dBase,"sensors");
+//  var count = db.connect(dBase,"sensors");
 app.post("/", function(request, response){
   	console.log("POST id: " + request.body.message.id + " name: " + request.body.message.name + " area: " + request.body.message.area);
 
